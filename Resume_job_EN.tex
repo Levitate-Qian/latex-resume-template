@@ -1,0 +1,308 @@
+%-------------------------------------
+% LaTeX Resume for Job (EN)
+% Original Author : Leslie Cheng
+% Modified by : Levitate Qian
+% License : MIT
+%-------------------------------------
+
+\documentclass[a4paper,12pt]{article}[leftmargin=*]
+\usepackage{xeCJK}
+\usepackage[empty]{fullpage}
+\usepackage{enumitem}
+\usepackage{ifxetex}
+\ifxetex
+  \usepackage{fontspec}
+  \usepackage[xetex]{hyperref}
+\else
+  \usepackage[utf8]{inputenc}
+  \usepackage[T1]{fontenc}
+  \usepackage[pdftex]{hyperref}
+\fi
+\usepackage{fontawesome5}
+\usepackage[sfdefault,light]{FiraSans}
+\usepackage{anyfontsize}
+\usepackage{xcolor}
+\usepackage{tabularx}
+\usepackage{graphicx}
+\usepackage{multirow}
+\usepackage{multicol}
+\usepackage{fancybox}
+\usepackage{ragged2e}
+
+% For better display in Chinese name, you may download and install the following fonts.
+% \setCJKsansfont{思源黑体 CN Light}[
+%     Path = ./fonts/, 
+%     UprightFont = SOURCEHANSANSCN-LIGHT.OTF, 
+%     BoldFont = SOURCEHANSANSCN-BOLD.OTF,      
+% ] 
+
+\newcommand{\semibook}{\firabook}
+\newcommand{\semibf}{\firamedium}
+\newcommand{\semibookit}{\itshape\firabook }
+\newcommand{\semibfit}{\itshape\firamedium }
+\newcommand{\heavybf}{\firaheavy}
+
+%-------------------------------------------------- SETTINGS HERE --------------------------------------------------
+% Header settings
+\def \fullname {Xxxx XxxxXxx {\normalsize (XXX)}}
+\def \subtitle {Master's Graduate of 20XX, Southeast University} 
+
+
+\def \phoneicon {\faPhone*}
+\def \phonetext {XXX~XXXX~XXXX}
+
+\def \hometownicon {\faHome}
+\def \hometowntext {Xxxx, Xxxxxxx}
+
+\def \birthdayicon {\faBirthdayCake}
+\def \birthdaytext {20XX.XX.XX (XX)}
+
+\def \emailicon {\faEnvelope}
+\def \emaillink {mailto:XXXX@outlook.com}
+\def \emailtext {XXXX@outlook.com}
+
+% \def \githubicon {\faGithub}
+% \def \githublink {https://github.com/Levitate-Qian}
+% \def \githubtext {/Levitate-Qian}
+
+\def \websiteicon {\faGlobeAsia}
+\def \websitelink {https://levitate-qian.github.io/}
+\def \websitetext {levitate-qian.github.io/}
+
+
+\def \headertype {\singlecol} % \singlecol or \doublecol % doublecol ver didn't test
+
+% Misc settings
+\def \entryspacing {-0pt}
+
+\def \bulletstyle {\faAngleRight}
+
+% Define colours
+\definecolor{primary}{HTML}{000000}
+\definecolor{secondary}{HTML}{0D47A1}
+% \definecolor{secondary}{HTML}{b0252a} %西电红
+% \definecolor{secondary}{HTML}{004181} %西电蓝
+\definecolor{accent}{HTML}{263238}
+\definecolor{links}{HTML}{1565C0}
+% \definecolor{links}{HTML}{bf5b5b} %西电红（浅）
+
+
+%------------------------------------------------------------------------------------------------------------------- 
+
+% Defines to make listing easier
+\def \linkedin {\linkedinicon \hspace{3pt}\href{\linkedinlink}{\linkedintext}}
+\def \phone {\phonetext}
+\def \hometown {\hometowntext}
+\def \birthday {\birthdaytext}
+\def \email {\href{\emaillink}{\emailtext}}
+\def \github {\githubicon \hspace{3pt}\href{\githublink}{\githubtext}}
+\def \website {\href{\websitelink}{\websitetext}}
+
+% Adjust margins
+\addtolength{\oddsidemargin}{-0.55in}
+\addtolength{\evensidemargin}{-0.55in}
+\addtolength{\textwidth}{1.1in}
+\addtolength{\topmargin}{-0.6in}
+\addtolength{\textheight}{1.1in}
+
+% Define the link colours
+\hypersetup{
+    colorlinks=true,
+    urlcolor=links,
+}
+
+% Set the margin alignment 
+\raggedbottom
+\raggedright
+% \RaggedRight
+\setlength{\tabcolsep}{0in}
+
+%-------------------------
+% Custom commands
+\newcommand{\button}[1]{
+  {\color{secondary}\scriptsize\mdseries\ovalbox{#1}}\hspace{1pt}
+}
+
+
+% Sections
+\renewcommand{\section}[3]{\vspace{5pt}
+  \colorbox{secondary}{\color{white}\raggedbottom\normalsize\textbf{{#1}{\hspace{7pt}#2}}}{#3}
+}
+
+% Entry start and end, for spacing
+\newcommand{\resumeEntryStart}{\begin{itemize}[leftmargin=2.5mm]}
+\newcommand{\resumeEntryEnd}{\end{itemize}\vspace{\entryspacing}}
+
+% Itemized list for the bullet points under an entry, if necessary
+\newcommand{\resumeItemListStart}{\begin{itemize}[leftmargin=4.5mm,rightmargin=2.5mm]}
+\newcommand{\resumeItemListEnd}{\end{itemize}}
+
+% Itemized list for the bullet points under an entry, if necessary
+\newcommand{\resumeItemListStartP}{\begin{itemize}[leftmargin=7mm,rightmargin=2.5mm]}
+\newcommand{\resumeItemListEndP}{\end{itemize}}
+
+% Resume item
+\renewcommand{\labelitemii}{\bulletstyle}
+\renewcommand{\labelitemi}{\bulletstyle}
+
+\newcommand{\resumeItem}[1]{
+  \item \small{
+    \justifying  #1 \vspace{-2pt}
+  }
+}
+
+% Entry with title, subheading, date(s), and location
+% \newcommand{\resumeEntryTSDL}[4]{
+%   \vspace{-1pt}\item[]
+%     \begin{tabularx}{0.97\textwidth}{X@{\hspace{60pt}}r}
+%       \textbf{\color{secondary}#1} & {\semibook\color{accent}\small#2} \\
+%       \textit{\color{accent}\small#3} & \textit{\color{accent}\small#4} \\
+%     \end{tabularx}\vspace{-6pt}
+% }
+\newcommand{\resumeEntryTSDL}[4]{
+  \vspace{-1pt}\item[]
+    \begin{tabularx}{0.97\textwidth}{X@{\hspace{30pt}}r}
+      \textbf{\color{secondary}#1} & {\semibook\color{accent}\small#2} \\
+    \end{tabularx}
+    \begin{tabularx}{0.97\textwidth}{X@{\hspace{26pt}}r}
+      \textit{\color{accent}\small#3} & \textit{\color{accent}\small#4} \\
+    \end{tabularx}\vspace{-3pt}
+    % \resumeItemListStart
+    %     \resumeItem {\small{{\par #3 \hfill \textit{\color{accent}#4} \par}}}
+    % \resumeItemListEnd\vspace{-6pt}
+}
+
+% Entry with title and date(s)
+\newcommand{\resumeEntryTD}[3]{
+  \vspace{-3pt}\item[]
+    \begin{tabularx}{0.97\textwidth}{X@{\hspace{40pt}}r}
+      \textbf{\color{secondary}#1} & {\semibook\color{accent}\small#2} \\
+    \end{tabularx}\vspace{-2pt}  
+    
+    {\small #3}
+    \vspace{-6pt}
+}
+
+% Entry for special (skills)
+\newcommand{\resumeEntryS}[2]{
+  \item[]\small
+    \textbf{\color{secondary}#1 　}\justifying #2  \vspace{-3pt}
+  
+}
+% Entry for special (Publications)
+\newcommand{\resumeEntryP}[2]{
+  \item\small{{\par \justifying #1 \hfill {\color{accent} \semibook #2} \par\vspace{-4pt}}%
+  }
+}
+
+% Entry for special (Awards)
+\newcommand{\resumeEntryA}[2]{
+  \item\small{{\par\justifying #1 \hfill #2 \par\vspace{-2pt}}%
+  }
+}
+
+% Double column header
+\newcommand{\doublecol}[6]{
+  \begin{tabularx}{\textwidth}{Xr}
+    {
+      \begin{tabular}[c]{l}
+        \fontsize{35}{45}\selectfont{\color{primary}{{\textbf{\fullname}}}} \\
+        {\textit{\subtitle}} % You could add a subtitle here
+      \end{tabular}
+    } & {
+      \begin{tabular}[c]{l@{\hspace{1.5em}}ll}
+        {\small#4} & {\small#1} &\multirow{3}*{\includegraphics[width=0.75in]{photo.jpg}}\\
+        {\small#5} & {\small#2} \\
+        {\small#6} & {\small#3}
+      \end{tabular}
+    }
+  \end{tabularx}
+}
+
+% Single column header
+\newcommand{\singlecol}[5]{
+  \begin{tabularx}{0.985\textwidth}{Xr}
+    {
+      \begin{tabular}[b]{l}
+        \fontsize{35}{45}\selectfont{\color{secondary}{{\textbf{\fullname}}}} \vspace{15pt}\\
+        {\textit{\subtitle}}   \vspace{5pt}% You could add a subtitle here
+      \end{tabular}
+    } & {
+      \begin{tabular}[b]{c@{\hspace{5pt}}l@{\hspace{1.5em}}l}
+        {\phoneicon} &{\small#1} &\multirow{3}*{\includegraphics[width=0.75in]{photo.jpg}}\\
+        {\emailicon} &{\small#2} \\
+        {\websiteicon} &{\small#3} \\
+        {\hometownicon} &{\small#4} \\
+        {\birthdayicon} &{\small#5} 
+      \end{tabular}
+    }
+  \end{tabularx}
+}
+
+\begin{document}
+%-------------------------------------------------- BEGIN HERE --------------------------------------------------
+
+%---------------------------------------------------- HEADER ----------------------------------------------------
+
+\headertype{\phone}{\email}{\website}{\hometown}{\birthday} % Set the order of items here
+\vspace{-5pt} % Set a negative value to push the body up, and the opposite
+
+%-------------------------------------------------- EDUCATION --------------------------------------------------
+\section{\faGraduationCap}{Education}{{\footnotesize\color{accent}\textmd{\textit{ (For more details, please visit \href{https://levitate-qian.github.io/details/}{my blog} with the password \texttt{XXXXXXX})}}}}
+
+  \resumeEntryStart
+  \resumeEntryTSDL
+  {Southeast University (SEU)~~~ {\color{accent}\normalfont \footnotesize (National Mobile Communications Research Laboratory)}}{20XX.09 - present}
+  {\button{M.Sc. Candidate}~ Communication Engineering, ranked {\firabook X/XXX}, supervised by Prof. {\firabook Xx Xxx}.}{Nanjing, Jiangsu}
+  \resumeItemListStart
+          \resumeEntryA{ {\semibook Outstanding Graduate Student Leader}, XXXX-class scholarship in SEU}{20XX.10}
+          \resumeEntryA{ XXXX Prize in the XXth China Graduate Mathematical Contest in Modeling}{20XX.01}
+        \resumeItemListEnd
+    \resumeEntryTSDL
+      {Xidian University (XDU) ~~~ {\color{accent}\normalfont \footnotesize (School of Electronic Engineering)}}{20XX.09 -- 20XX.06}
+      {\button{B.Sc. Degree}~Electronic Information Engineering, GPA 3.9/4.0, ranked {\firabook X/XXX}.}{Xi'an, Shaanxi}
+      \resumeItemListStart
+        \resumeEntryA{XXXX-class scholarship for graduates in XDU, {\semibook Outstanding Graduates in XDU}}{20XX.06}
+        \resumeEntryA{{\semibook National Scholarship, Outstanding Student Model in XDU}}{20XX.11}
+        \resumeEntryA{{\semibook XXXXX Winner \& XXXXXX Award in Interdisciplinary Contest in Modeling (MCM/ICM)}}{20XX.04}
+        \resumeItemListEnd
+  \resumeEntryEnd
+
+
+\section{\faPenNib}{Publications}{}
+
+\resumeItemListStartP
+    \resumeEntryP{{\semibf XXXXXX~XX}, XXXXXX~XX, XXXXXX~XX, XXXXXX~XX and XXXXXX~XX, \href{https://ieeexplore.ieee.org/document/10423384/}{``......................,"} {\semibookit IEEE ......................}, vol.~XX, no.~XX, pp.~XXXX--XXXX, Xxx.~2024. 　　　　　}{~[XXX Author | SCI | JCR Qx | IF: X.X]}
+    \resumeEntryP{XXXXXX~XX, XXXXXX~XX, {\semibf XXXXXX~XX}, XXXXXX~XX and XXXXXX~XX, \href{https://ieeexplore.ieee.org/document/10620680/}{``......................,"} {\semibookit IEEE ......................}, vol.~XX, no.~XX, pp.~XXXX--XXXX, Xxx.~2024. 　　　　}{~[XXX Author | SCI | JCR Qx | IF: X.X]}
+\resumeItemListEndP
+
+
+%-------------------------------------------------- PROJECTS --------------------------------------------------
+\section{\faBroadcastTower}{Projects}{}
+\resumeEntryStart
+  \resumeEntryTD
+{XX-based Joint Design of XXXX and XXXX}{XXXXXX Cooperation Project}{{\semibf 【Objective】} What is the main research focus of this project?}
+\resumeItemListStart
+    \resumeItem {Considering the issue of ..., a {\semibook ... design} is proposed, which addresses ... through .... The related paper has been published in XXXX {\semibookit ...}.}
+    \resumeItem {Given the contradiction of ..., ..., a {\semibook ... design} is proposed and implemented, which integrates ... and ... to solve .... The related paper has been published in XXXX {\semibookit ...}.}
+\resumeItemListEnd
+\resumeEntryTD
+{XX-based  Design of XXXX}{XXXXXX}{{\semibf 【Objective】} What is the main research focus of this project?}
+\resumeItemListStart
+    \resumeItem {Considering the issue of ..., a {\semibook ... design} is proposed, which addresses ... through .... The related paper has been published in XXXX {\semibookit ...}.}
+\resumeItemListEnd
+
+\resumeEntryEnd
+
+
+
+    %-------------------------------------------------- PROGRAMMING SKILLS --------------------------------------------------
+\section{\faBuffer}{Skills}{}
+\resumeEntryStart
+\resumeEntryS{English Proficiency} {{\semibook CET-4: XXX, CET-6: XXX.}}
+\resumeEntryS{Programming Skills} {Proficient in XXXX programming, familiar with ....... Basic knowledge of XXXX programming. }
+\resumeEntryS{XXXXX} {{ Proficient in .........}. }
+\resumeEntryEnd
+
+
+\end{document}

@@ -1,0 +1,312 @@
+%-------------------------------------
+% LaTeX Resume for Graduate Recommendation (CN)
+% Original Author : Leslie Cheng
+% Modified by : Levitate Qian
+% License : MIT
+%-------------------------------------
+
+\documentclass[letterpaper,12pt]{article}[leftmargin=*]
+\usepackage{xeCJK}
+\usepackage[empty]{fullpage}
+\usepackage{enumitem}
+\usepackage{ifxetex}
+\ifxetex
+  \usepackage{fontspec}
+  \usepackage[xetex]{hyperref}
+\else
+  \usepackage[utf8]{inputenc}
+  \usepackage[T1]{fontenc}
+  \usepackage[pdftex]{hyperref}
+\fi
+\usepackage{fontawesome5}
+\usepackage[sfdefault,light]{FiraSans}
+% \usepackage{anyfontsize}
+\usepackage{xcolor}
+\usepackage{tabularx}
+\usepackage{graphicx}
+\usepackage{multirow}
+\usepackage{multicol}
+
+% 定义字体，请记得从网站提供的地址下载
+\setCJKsansfont{思源黑体 CN Light}[
+    Path = ./fonts/, 
+    UprightFont = SOURCEHANSANSCN-LIGHT.OTF, % 直立体
+    BoldFont = SOURCEHANSANSCN-BOLD.OTF,       % 粗体
+    ItalicFont = JiangChengXieHei 200W.ttf,    % 斜体
+] 
+\newcommand{\semibook}{\firabook \CJKfontspec[Path = ./fonts/]{SOURCEHANSANSCN-REGULAR.OTF} }
+
+% 如果你没有下载字体，请取消注释下列命令，以尝试初次编译能否成功
+% \newcommand{\semibook}{\firabook}
+
+%-------------------------------------------------- SETTINGS HERE --------------------------------------------------
+% Header settings
+\def \fullname {XXX}
+\def \subtitle {XX大学XXXX级本科生}
+
+\def \phoneicon {\faPhone*}
+\def \phonetext {XXX~XXXX~XXXX}
+
+\def \hometownicon {\faMapMarker}
+\def \hometowntext {XX省XX市}
+
+\def \birthdayicon {\faBirthdayCake}
+\def \birthdaytext {20XX.XX.XX}
+
+\def \emailicon {\faEnvelope}
+\def \emaillink {mailto:XXXX@outlook.com}
+\def \emailtext {XXXX@outlook.com}
+
+% \def \githubicon {\faGithub}
+% \def \githublink {https://github.com/Levitate-Qian}
+% \def \githubtext {/Levitate-Qian}
+
+\def \websiteicon {\faGlobeAsia}
+\def \websitelink {https://levitate-qian.github.io/}
+\def \websitetext {levitate-qian.github.io/}
+
+
+\def \headertype {\singlecol} % \singlecol or \doublecol % 双栏并未测试
+
+% Misc settings
+\def \entryspacing {-0pt}
+
+\def \bulletstyle {\faAngleRight}
+
+% Define colours
+\definecolor{primary}{HTML}{000000}
+\definecolor{secondary}{HTML}{0D47A1}
+% \definecolor{secondary}{HTML}{b0252a} %西电红
+% \definecolor{secondary}{HTML}{004181} %西电蓝
+\definecolor{accent}{HTML}{263238}
+\definecolor{links}{HTML}{1565C0}
+% \definecolor{links}{HTML}{bf5b5b} %西电红（浅）
+
+
+%------------------------------------------------------------------------------------------------------------------- 
+
+% Defines to make listing easier
+\def \linkedin {\linkedinicon \hspace{3pt}\href{\linkedinlink}{\linkedintext}}
+\def \phone {\phonetext}
+\def \hometown {\hometowntext}
+\def \birthday {\birthdaytext}
+\def \email {\href{\emaillink}{\emailtext}}
+\def \github {\githubicon \hspace{3pt}\href{\githublink}{\githubtext}}
+\def \website {\href{\websitelink}{\websitetext}}
+
+% Adjust margins
+\addtolength{\oddsidemargin}{-0.55in}
+\addtolength{\evensidemargin}{-0.55in}
+\addtolength{\textwidth}{1.1in}
+\addtolength{\topmargin}{-0.6in}
+\addtolength{\textheight}{1.1in}
+
+% Define the link colours
+\hypersetup{
+    colorlinks=true,
+    urlcolor=links,
+}
+
+% Set the margin alignment 
+\raggedbottom
+\raggedright
+\setlength{\tabcolsep}{0in}
+
+%-------------------------
+% Custom commands
+
+% Sections
+\renewcommand{\section}[3]{\vspace{5pt}
+  \colorbox{secondary}{\color{white}\raggedbottom\normalsize\textbf{{#1}{\hspace{7pt}#2}}}{#3}
+}
+
+% Entry start and end, for spacing
+\newcommand{\resumeEntryStart}{\begin{itemize}[leftmargin=2.5mm]}
+\newcommand{\resumeEntryEnd}{\end{itemize}\vspace{\entryspacing}}
+
+% Itemized list for the bullet points under an entry, if necessary
+\newcommand{\resumeItemListStart}{\begin{itemize}[leftmargin=4.5mm,rightmargin=2.5mm]}
+\newcommand{\resumeItemListEnd}{\end{itemize}}
+
+% Resume item
+\renewcommand{\labelitemii}{\bulletstyle}
+\newcommand{\resumeItem}[1]{
+  \item\small{
+    {#1 \vspace{-2pt}}
+  }
+}
+
+% Entry with title, subheading, date(s), and location
+\newcommand{\resumeEntryTSDL}[4]{
+  \vspace{-1pt}\item[]
+    \begin{tabularx}{0.97\textwidth}{X@{\hspace{60pt}}r}
+      \textbf{\color{secondary}#1} & {\semibook\color{accent}\small#2} \\
+      \textit{\color{accent}\small#3} & \textit{\color{accent}\small#4} \\
+    \end{tabularx}\vspace{-6pt}
+}
+
+% Entry with title and date(s)
+\newcommand{\resumeEntryTD}[2]{
+  \vspace{-1pt}\item[]
+    \begin{tabularx}{0.97\textwidth}{X@{\hspace{60pt}}r}
+      \textbf{\color{secondary}#1} & {\semibook\color{accent}\small#2} \\
+    \end{tabularx}\vspace{-6pt}
+}
+
+% Entry for special (skills)
+\newcommand{\resumeEntryS}[2]{
+  \item[]\small{
+    \textbf{\color{secondary}#1 }{ #2 }
+  }
+}
+
+% Entry for special (Awards)
+\newcommand{\resumeEntryA}[2]{
+  \item\small{{\par #1 \hfill #2 \par\vspace{-2pt}}%
+  }
+}
+
+% Double column header
+\newcommand{\doublecol}[6]{
+  \begin{tabularx}{\textwidth}{Xr}
+    {
+      \begin{tabular}[c]{l}
+        \fontsize{35}{45}\selectfont{\color{primary}{{\textbf{\fullname}}}} \\
+        {\textit{\subtitle}} % You could add a subtitle here
+      \end{tabular}
+    } & {
+      \begin{tabular}[c]{l@{\hspace{1.5em}}ll}
+        {\small#4} & {\small#1} &\multirow{3}*{\includegraphics[width=0.75in]{photo.jpg}}\\
+        {\small#5} & {\small#2} \\
+        {\small#6} & {\small#3}
+      \end{tabular}
+    }
+  \end{tabularx}
+}
+
+% Single column header
+\newcommand{\singlecol}[5]{
+  \begin{tabularx}{0.985\textwidth}{Xr}
+    {
+      \begin{tabular}[b]{l}
+        \fontsize{35}{45}\selectfont{\color{secondary}{{\textbf{\fullname}}}} \vspace{15pt}\\
+        {\textit{\subtitle}}   \vspace{5pt}% You could add a subtitle here
+      \end{tabular}
+    } & {
+      \begin{tabular}[b]{c@{\hspace{5pt}}l@{\hspace{1.5em}}l}
+        {\phoneicon} &{\small#1} &\multirow{3}*{\includegraphics[width=0.75in]{photo.jpg}}\\
+        {\emailicon} &{\small#2} \\
+        {\websiteicon} &{\small#3} \\
+        {\hometownicon} &{\small#4} \\
+        {\birthdayicon} &{\small#5} 
+      \end{tabular}
+    }
+  \end{tabularx}
+}
+
+\begin{document}
+%-------------------------------------------------- BEGIN HERE --------------------------------------------------
+
+%---------------------------------------------------- HEADER ----------------------------------------------------
+
+\headertype{\phone}{\email}{\website}{\hometown}{\birthday} % Set the order of items here
+\vspace{-10pt} % Set a negative value to push the body up, and the opposite
+
+%-------------------------------------------------- EDUCATION --------------------------------------------------
+\section{\faGraduationCap}{Education}{}
+
+  \resumeEntryStart
+    \resumeEntryTSDL
+      {西安电子科技大学}{20XX.09 -- 至今}
+      { 电子工程学院，电子信息工程{\footnotesize (不区分方向)}，担任XXXXXXXX。}{西安，陕西}
+      \resumeItemListStart
+        \resumeItem {前五学期推免排名课程均分{XX.XX}，{\semibook 排名XX/XXX}。}
+        \resumeItem {{\semibook 前六学期推免排名课程均分{XX.XX}}，必修与限选均分XX.XX，GPA为3.9/4.0。主干课程中，信号与系统(XX)，随机信号分析(XX)，数字信号处理(XX)。}
+      \resumeItemListEnd
+  \resumeEntryEnd
+
+
+%-------------------------------------------------- AWARDS --------------------------------------------------
+\section{\faTrophy}{Awards}{{\footnotesize\color{accent}\textmd{\textit{ (访问\href{https://levitate-qian.github.io/details/}{博客详情}了解更多，访问密码为XXXXXXXXXXXX)}}}}
+
+  \resumeEntryStart
+    \resumeEntryTD
+      {奖励荣誉}{\color{secondary}\faCalendar}
+    \resumeItemListStart
+    \resumeEntryA{{\semibook 20XX~-~20XX学年国家奖学金、校级优秀学生标兵}}{20XX.11}
+    \resumeEntryA{20XX~-~20XX学年校级一等奖学金、校级优秀学生}{20XX.11}
+    \resumeItemListEnd
+
+    \resumeEntryTD
+      {学科竞赛}{\color{secondary}\faCalendar}
+      \resumeItemListStart
+      \resumeEntryA{{\semibook 20XX年国际大学生数学建模竞赛XXXXX}}{20XX.04}
+      \textit{\color{accent}\fontsize{9pt}{1}\selectfont 这个奖有什么特别之处，比如比例、报道等。}
+      \resumeEntryA{20XX年全国大学生数学建模竞赛XXXXX}{20XX.12}
+      \resumeEntryA{20XX年全国大学生数学竞赛（非数学类）XXXXX}{20XX.11}
+      \resumeItemListEnd
+  \resumeEntryEnd
+
+  % \resumeEntryStart
+  %   \resumeEntryTSDL
+  %     {Staples}{Mar. 2008 -- Mar. 2008}
+  %     {Sales Associate}{Scranton, PA}
+  %   \resumeItemListStart
+  %       \resumeItem {Became the top salesman of the store within a one-month timespan}
+  %       \resumeItem {Made a record-high sales figure despite having an unfunny boss}
+  %       \resumeItem {Provided extraordinary and exceptional customer service to the masses}
+  %   \resumeItemListEnd
+  % \resumeEntryEnd
+
+  % \resumeEntryStart
+  %   \resumeEntryTSDL
+  %     {Dunder Mifflin}{Mar. 2005 -- Mar. 2008}
+  %     {Assistant (to the) Regional Manager}{Scranton, PA}
+  %   \resumeItemListStart
+  %     \resumeItem {Acted as Regional Manager's eyes, ears, and right hand, overseeing and reporting on employee conduct}
+  %     \resumeItem {Provided services to the office such as martial arts and surveillance}
+  %     \resumeItem {Introduced new linen paper lines into the market, often closing sight-unseen sales}
+  %   \resumeItemListEnd
+  % \resumeEntryEnd
+
+    %-------------------------------------------------- PROGRAMMING SKILLS --------------------------------------------------
+\section{\faBuffer}{Skills}{}
+\resumeEntryStart
+\resumeEntryS{英语水平 } {在……做了……(用于支撑英语水平的案例)。{\semibook 国家英语四、六级分别为XXX与XXX分。}}
+\resumeEntryS{编程水平 } {{\semibook 熟悉……(语言)。}在……中，利用……，实现了……。在……中，利用……，实现了……。在……中，利用……，实现了……。(用于支撑编程水平的案例)}
+\resumeEntryS{XXXX } {{\semibook …………………………。}在哪儿做什么，有什么收获。(用于支撑该技能的案例)}
+\resumeEntryEnd
+
+%-------------------------------------------------- PROJECTS --------------------------------------------------
+\section{\faFlask}{Projects}{}
+
+  \resumeEntryStart
+
+\resumeEntryTD
+  {竞赛 | 20XX年国际大学生数学建模竞赛}{XXXXXX AWARD \& XXXXXX Winner }
+\resumeItemListStart
+  \resumeItem {你做了什么？}
+  \resumeItem {在竞赛中做了什么？}
+\resumeItemListEnd
+
+
+  \resumeEntryTD
+  {项目 | XXXX}{(指导老师名字)}
+\resumeItemListStart
+  \resumeItem {你做了什么？}
+  \resumeItem {该项目是做什么的？}
+\resumeItemListEnd
+% \resumeEntryEnd
+
+\resumeEntryTD
+{论文 | XXXX}{(指导老师名字)}
+\resumeItemListStart
+\resumeItem {你做了什么？}
+\resumeItem {该论文是做什么的？有什么创新之处？收获了什么？}
+\resumeItemListEnd
+
+  \resumeEntryEnd
+
+
+
+\end{document}
